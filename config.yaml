@@ -1,0 +1,81 @@
+# ==============================
+# Configuration File
+# Diabetes Risk Prediction Model
+# ==============================
+
+# Model Configuration
+model:
+  name: "diabetes_risk_predictor"
+  version: "1.0.0"
+  random_seed: 42
+  
+# Data Configuration
+data:
+  min_required_rows: 100
+  test_size: 0.2
+  validation_size: 0.2
+  missing_value_threshold: 0.3  # Drop columns with >30% missing
+  outlier_method: "IQR"
+  outlier_threshold: 3.0
+  
+# Feature Engineering
+features:
+  predictors:
+    - Age
+    - BMI
+    - BloodSugar
+    - insulin
+    - pressure
+    - pregnant
+  target: "Diabetes"
+  scaling_method: "standardize"  # Options: standardize, normalize, none
+  
+# Model Training
+training:
+  linear_model:
+    formula: "BloodSugar ~ Age + BMI + pressure + pregnant"
+  logistic_model:
+    formula: "Diabetes ~ Age + BMI + BloodSugar + pressure + pregnant"
+    threshold: 0.5
+  
+# Model Validation
+validation:
+  cv_folds: 5
+  min_auc: 0.70
+  min_sensitivity: 0.65
+  min_specificity: 0.65
+  
+# Output Configuration
+output:
+  results_dir: "results"
+  models_dir: "models"
+  logs_dir: "logs"
+  plots_dir: "plots"
+  reports_dir: "reports"
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "diabetes_model.log"
+  
+# API Configuration (for deployment)
+api:
+  host: "0.0.0.0"
+  port: 8000
+  max_batch_size: 1000
+  timeout: 30
+  
+# Database Configuration (optional)
+database:
+  enabled: false
+  type: "postgresql"  # postgresql, mysql, sqlite
+  host: "localhost"
+  port: 5432
+  name: "diabetes_db"
+  
+# Monitoring & Alerts
+monitoring:
+  enable_drift_detection: true
+  drift_threshold: 0.1
+  alert_email: "datascience@example.com"

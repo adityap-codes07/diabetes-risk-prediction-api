@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  diabetes-api:
+    build: .
+    container_name: diabetes-prediction-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./results:/app/results
+      - ./logs:/app/logs
+      - ./plots:/app/plots
+      - ./reports:/app/reports
+    environment:
+      - R_LIBS_USER=/usr/local/lib/R/site-library
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - diabetes-network
+
+  # Optional: Add a PostgreSQL database for logging/storage
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: diabetes-db
+  #   environment:
+  #     POSTGRES_USER: diabetes_user
+  #     POSTGRES_PASSWORD: secure_password
+  #     POSTGRES_DB: diabetes_db
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - diabetes-network
+
+networks:
+  diabetes-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:

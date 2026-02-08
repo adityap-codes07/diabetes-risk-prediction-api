@@ -1,0 +1,59 @@
+# R specific
+.Rhistory
+.RData
+.Rproj.user
+*.Rproj
+
+# Output directories
+results/*
+models/*
+logs/*
+plots/*
+reports/*
+
+# Keep directory structure
+!results/.gitkeep
+!models/.gitkeep
+!logs/.gitkeep
+!plots/.gitkeep
+!reports/.gitkeep
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+Rplots.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker
+*.tar
+.dockerignore
+
+# Python (if using R + Python)
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+env/
+
+# Data files (if large)
+*.csv
+*.rds
+!reference_data.csv
+
+# Credentials
+secrets.yaml
+.env
+credentials.json
+
